@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{Layout}">
+<head>
+<title>Content page 1</title>
+<script src="content-script.js"></script>
+</head>
+<body>
+	<section layout:fragment="content">
+		<form th:action="@{/users/save}" th:object="${user}" method="post">
+			<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
+				th:class="text-red">Incorrect data</p>
+				<input type="hidden" th:field="*{id}"/>
+			<div th:class="form-group" th:classappend="${#fields.hasErrors('username')}? 'has-error'">
+				<label>Username</label> <input type="text" th:field="*{username}" th:class="form-control"  th:classappend="${#fields.hasErrors('username')}? 'is-invalid'"/>
+				<div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+					th:class="invalid-feedback">Incorrect data</div>
+			</div>			
+			<div th:class="form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
+				<label>Password</label> <input type="text"
+					th:field="*{password}" th:class="form-control" th:classappend="${#fields.hasErrors('password')}? 'is-invalid'"/>
+				<div  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+					th:class="invalid-feedback">Incorrect data</div>
+			</div>
+			<div>
+				<button type="submit" class="btn btn-success">Submit</button>
+			</div>
+		</form>
+		
+	</section>
+</body>
+</html>
